@@ -34,16 +34,18 @@ namespace CarbonUnits.Controllers
             return View(searchPage);
         }
 
+
         public ActionResult Try()
         {
             Member member = new Member();
             DateTime date;
-            DateTime.TryParse("12.12.1979", out date);
-            member = member.CreateNewMember(0, 0, null, null, null, null, null, null, null, "14354352", null, null, null, null, "Анатолий", "Гришин", "Александрович", date, 21, "1524", "333204", null, "53424023423", "Москва");
+            DateTime.TryParse("11.01.1996", out date);
+            member = member.CreateNewMember(0, 0, null, null, null, null, null, null, null, "21554352", null, null, null, null, "Леонид", "Винилов", "Васильевич", date, 21, "3324", "984204", null, "10324023423", "Москва");
             if (member == null)
                 return Content("NeOkMember");
             Account account = new Account();
-            account = account.CreateNewAccount(member, "000000", null, 0, null, null, null, null, null, null, null, null, null);
+
+            account = account.CreateNewAccount(member, null, 0, null, null, null, null, null, null, null, null, null);
             if(account==null)
                 return Content("NeOkAccount");
             return Content("Ok");
