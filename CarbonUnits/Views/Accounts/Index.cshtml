@@ -1,0 +1,173 @@
+﻿@model CarbonUnits.ViewModel.AccountSearchPage
+<h2>Регистр счетов</h2>
+<div style="border:1px solid #dee2e6;">
+    <p></p>
+   &nbsp&nbsp<label><b>Параметры поиска</b></label>
+   <form class="form-inline">
+    <div class="form-group">
+        &nbsp&nbsp<label>Номер счёта</label>&nbsp&nbsp
+        @Html.TextBoxFor(m => m.Account.Id, new { @class = "form-control", @style="width:30%;display: inline-block;" })
+    &nbsp&nbsp&nbsp&nbsp
+        <label>Состояние</label>&nbsp&nbsp
+       @Html.DropDownListFor(m=> m.AccountStates,new SelectList(Model.AccountStates,"Id", "Name"),"", new { @class = "form-control", @style="width: auto;display: inline-block;" })
+     
+       &nbsp&nbsp<label>Участник</label>&nbsp&nbsp
+        @Html.TextBoxFor(m => m.Account.Id, new { @class = "form-control", @style="width:30%;display: inline-block;" })
+   
+   </div> 
+    </form>   
+
+<p></p>
+     <form class="form-inline">
+    <div class="form-group">
+        &nbsp&nbsp<label>Дата открытия счёта с</label>&nbsp&nbsp
+        @Html.TextBoxFor(m => m.Account.DateOpen, new { type = "date", @class = "form-control", @style="width:30%;display: inline-block;" })
+        
+    &nbsp&nbsp&nbsp&nbsp
+        <label>по</label>&nbsp&nbsp
+       @Html.TextBoxFor(m => m.Account.DateOpen, new { type = "date", @class = "form-control", @style="width:30%;display: inline-block;" })
+        
+   </div> 
+    </form>   
+    <p></p>
+
+
+         <form class="form-inline">
+    <div class="form-group">
+        &nbsp&nbsp<label>Дата закрытия счёта с</label>&nbsp&nbsp
+        @Html.TextBoxFor(m => m.Account.DateClose, new { type = "date", @class = "form-control", @style="width:30%;display: inline-block;" })
+        
+    &nbsp&nbsp&nbsp&nbsp
+        <label>по</label>&nbsp&nbsp
+       @Html.TextBoxFor(m => m.Account.DateClose, new { type = "date", @class = "form-control", @style="width:30%;display: inline-block;" })
+        
+   </div> 
+    </form>   
+    <p></p>
+    @using (Html.BeginForm("Index", "Accounts"))
+{   
+    <label> </label>
+    <button type="submit" class="btn btn-primary">Поиск</button>
+        <button class="btn btn-primary">Очистить</button>
+}
+<p></p>
+    
+</div>
+<p></p>
+<form class="form-inline">
+        <div class="form-group">
+        <button class="btn btn-primary">Обновить</button>
+         <button class="btn btn-primary">Документы</button>
+          <button class="btn btn-primary">Счета</button>
+           <button class="btn btn-primary">Операции</button>
+    </div></form>
+    <p></p>
+
+
+    
+    <table id="accounts_table" class="table table-bordered" style="height:100px">
+<thead style="font-size:14px"><tr class="table-secondary"><th>ФИО/Наименование участника</th>
+    <th>Идентификатор участника</th>
+    <th>Тип лица</th>
+<th>ИНН</th>
+<th>СНИЛС</th>
+<th>ОГРН</th>
+<th>Номер счёта</th>
+<th>Состояние</th>
+<th>Дата открытия</th>
+<th>Документ-основание открытия</th>
+<th>Дата закрытия</th>
+<th>Документ-основание закрытия</th></tr></thead>
+
+@*foreach(var mem in Model.Accounts)
+    {
+
+        string fullName = mem.Member.FullName == null ?  mem.Member.LastName + " " + mem.Member.FirstName + " " + mem.Member.Patronymic:mem.Member.FullName;
+
+        <tr>
+            <td>@fullName</td>
+        <td>@mem.Member.Id</td>
+        <td>@mem.Member.MemberType.Name</td>
+        <td>@mem.Member.INN</td>
+        <td>@mem.Member.SNILS</td>
+        <td>@mem.Member.OGRN</td>
+        <td>@mem.Identity</td>
+        <td>@mem.AccountStates.Name</td>
+        <td>@mem.DateOpen</td>
+        <td>123</td>
+        <td>@mem.DateClose</td>
+        <td></td>
+    </tr>
+    }
+    *@
+    
+</table>
+
+@section scripts{
+
+
+<script>
+    $(document).ready(function() {
+    $("#accounts_table").dataTable(
+        {
+                    ajax:{
+                        url: '/api/accounts',
+                        dataSrc: ''
+                    },
+                columns:[
+                    {data:"fullName"},
+                    {data:"member.id"},
+                    {data:"member.memberType.name"},
+                    {data:"member.inn"},
+                    {data:"member.snils"},
+                    {data:"member.ogrn"},
+                    {data:"identity"},
+                    {data:"accountStates.name"},
+                    {data:"dateOpen"},
+                    {data:"orderToOpen.identity"},
+                    {data:"dateClose"},
+                    {data:"orderToClose.identity"}
+                ],
+        "iDisplayLength": 8,
+            "aLengthMenu": [
+                [ 
+                    5, 
+                    10, 
+                    15, 
+                    20,
+                    -1],[
+                        5,
+                        10,
+                        15,
+                        20,
+                        "все"
+                    ]
+            ],
+            language: {
+                "processing": "Подождите...",
+                "search": "Поиск в найденном: ",
+                "lengthMenu": "Показать _MENU_ записей",
+                "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+                "infoEmpty": "Записи с 0 до 0 из 0 записей",
+                "infoFiltered": "(отфильтровано из _MAX_ записей)",
+                "infoPostFix": "",
+                "loadingRecords": "Загрузка записей...",
+                "zeroRecords": "Записи отсутствуют.",
+                "emptyTable": "В таблице отсутствуют данные",
+                "paginate": {
+                    "first": " Первая ",
+                    "previous": " Предыдущая ",
+                    "next": " Следующая ",
+                    "last": " Последняя "
+                },
+                "aria": {
+                    "sortAscending": ": активировать для сортировки столбца по возрастанию",
+                    "sortDescending": ": активировать для сортировки столбца по убыванию"
+                }
+                }
+                });
+          });
+
+
+</script>
+}

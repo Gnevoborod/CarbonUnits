@@ -1,0 +1,181 @@
+﻿@model CarbonUnits.ViewModel.MemberSearchPage
+@*
+    
+*@
+@{
+}
+<h2>Регистр участников</h2>
+
+<div style="border:1px solid #dee2e6;">
+    <p></p>
+   &nbsp&nbsp<label><b>Параметры поиска</b></label>
+@using (Html.BeginForm("Search", "Member", FormMethod.Post))
+{ 
+   <div class="form-inline">
+    <div class="form-group">
+        &nbsp&nbsp<label>Идентификатор участника</label>&nbsp&nbsp
+        @Html.TextBoxFor(m => m.Member.Id, new { @class = "form-control", @style="width:30%;display: inline-block;" })
+    </div></div>
+    <p></p>
+
+<div class="form-inline">
+    <div class="form-group">
+        &nbsp&nbsp<label>Тип лица</label>&nbsp&nbsp
+       @Html.DropDownListFor(m=> m.MemberTypes,new SelectList(Model.MemberTypes,"Id", "Name"),"", new { @class = "form-control", @style="width: auto;display: inline-block;" })
+       
+    &nbsp&nbsp&nbsp&nbsp
+        <label>Признак лица</label>&nbsp&nbsp
+       @Html.DropDownListFor(m=> m.MemberCitizens,new SelectList(Model.MemberCitizens,"Id", "Name"),"", new { @class = "form-control", @style="width: auto;display: inline-block;" })
+      </div> 
+    </div>   
+
+<p></p>
+ <div class="form-inline">
+    <div class="form-group">
+       &nbsp&nbsp<label>Наименование/ФИО</label>&nbsp&nbsp
+        @Html.TextBoxFor(m => m.Member.FullName, new { @class = "form-control",@style="width: 70%;display: inline-block;" })
+    </div></div>
+    <p></p>
+
+     <div class="form-inline">
+    <div class="form-group">
+       &nbsp&nbsp <label>Документ удостоверяющий личность</label>&nbsp&nbsp
+      @Html.DropDownListFor(m=> m.PersonDocumentsTypes,new SelectList(Model.PersonDocumentsTypes,"Id", "Name"),"", new { @class = "form-control", @style="width: 40%;display: inline-block;" })
+       
+       &nbsp&nbsp<label>Серия</label>&nbsp&nbsp
+        @Html.TextBoxFor(m => m.Member.DocSeries, new { @class = "form-control", @style="width:8%;display: inline-block;" })
+
+        &nbsp&nbsp <label>Номер</label>&nbsp&nbsp
+        @Html.TextBoxFor(m => m.Member.DocNumber, new { @class = "form-control", @style="width:15%;display: inline-block;" })
+    </div></div>
+    <p></p>
+
+    <div class="form-inline">
+    <div class="form-group">
+        &nbsp&nbsp<label>ИНН</label>&nbsp&nbsp
+        @Html.TextBoxFor(m => m.Member.INN, new { @class = "form-control",@style="width: 35%;display: inline-block;" })
+
+        <label>СНИЛС</label>&nbsp&nbsp
+        @Html.TextBoxFor(m => m.Member.SNILS, new { @class = "form-control",@style="width: 35%;display: inline-block;" })
+    </div></div>
+    <p></p>
+
+    <div class="form-inline">
+        <div class="form-group">
+       &nbsp&nbsp<label>ОГРН/Регистрационный номер</label>&nbsp&nbsp
+        @Html.TextBoxFor(m => m.Member.OGRN, new { @class = "form-control",@style="width: 70%;display: inline-block;" })
+    </div></div>
+    <p></p>
+  
+    
+    <label> </label>
+    <button type="submit" class="btn btn-primary">Поиск</button>
+        <button class="btn btn-primary">Очистить</button>
+}
+<p></p>
+    
+</div>
+<p></p>
+<form class="form-inline">
+        <div class="form-group">
+        <button class="btn btn-primary">Обновить</button>
+         <button class="btn btn-primary">Документы</button>
+          <button class="btn btn-primary">Счета</button>
+           <button class="btn btn-primary">Операции</button>
+    </div></form>
+    <p></p>
+
+    <table id="members_table" class="table table-bordered" style="height:100px">
+<thead style="font-size:14px"><tr class="table-secondary"><th>Идентификатор</th>
+    <th>Тип лица</th>
+    <th>Признак лица</th>
+<th>Наименование/ФИО</th>
+<th>ОГРН/Регистрационный номер</th>
+<th>ИНН</th>
+<th>СНИЛС</th>
+<th>Документ, удостоверяющий личность</th>
+<th>Счёт</th></tr></thead>
+@*foreach(var mem in Model.Members)
+    {<tr id="@mem.Id">
+        <td id="Id">@mem.Id</td>
+        <td>@mem.MemberType.Name</td>
+        <td>@mem.MemberCitizen.Name</td>
+        <td>@mem.LastName @mem.FirstName @mem.Patronymic</td>
+        <td>@mem.OGRN</td>
+        <td id="INN">@mem.INN</td>
+        <td>@mem.SNILS</td>
+        <td>@mem.PersonDocumentsTypes.Name: @mem.DocSeries @mem.DocNumber</td>
+            @{
+                var identity = @Model.Accounts.SingleOrDefault(a => a.Member.Id == mem.Id && a.AccountStatesId == 0);
+                string result = identity == null ? "" : identity.Identity;
+            }
+        <td>@result</td></tr>
+    }
+    *@
+</table>
+@section scripts{
+
+
+<script>
+
+$(document).ready(function() {
+    $("#members_table").dataTable(
+        {
+                    ajax:{
+                        url: '/api/members',
+                        dataSrc: ''
+                    },
+                columns:[
+                    {data:"id"},
+                    {data:"memberType.name"},
+                    {data:"memberCitizen.name"},
+                    {data:"fullName"},
+                    {data:"ogrn"},
+                    {data:"inn"},
+                    {data:"snils"},
+                    {data:"documentInfo"},
+                    {data:"account.identity"},
+                  
+                ],
+        "iDisplayLength": 8,
+            "aLengthMenu": [
+                [ 
+                    5, 
+                    10, 
+                    15, 
+                    20,
+                    -1],[
+                        5,
+                        10,
+                        15,
+                        20,
+                        "все"
+                    ]
+            ],
+            language: {
+                "processing": "Подождите...",
+                "search": "Поиск в найденном: ",
+                "lengthMenu": "Показать _MENU_ записей",
+                "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
+                "infoEmpty": "Записи с 0 до 0 из 0 записей",
+                "infoFiltered": "(отфильтровано из _MAX_ записей)",
+                "infoPostFix": "",
+                "loadingRecords": "Загрузка записей...",
+                "zeroRecords": "Записи отсутствуют.",
+                "emptyTable": "В таблице отсутствуют данные",
+                "paginate": {
+                    "first": " Первая ",
+                    "previous": " Предыдущая ",
+                    "next": " Следующая ",
+                    "last": " Последняя "
+                },
+                "aria": {
+                    "sortAscending": ": активировать для сортировки столбца по возрастанию",
+                    "sortDescending": ": активировать для сортировки столбца по убыванию"
+                }
+                }
+                });
+          });
+
+</script>
+}

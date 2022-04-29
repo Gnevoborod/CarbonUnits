@@ -1,0 +1,92 @@
+﻿@model CarbonUnits.ViewModel.OrderSearchPage
+<h2>Регистр заявлений</h2>
+
+<div style="border:1px solid #dee2e6;">
+    <p></p>
+   &nbsp&nbsp<label><b>Параметры поиска</b></label>
+   
+    <p></p>
+
+     <form class="form-inline">
+    <div class="form-group">
+        &nbsp&nbsp<label>Идентификатор документа</label>&nbsp&nbsp
+        @Html.TextBoxFor(m => m.Order.Identity, new { @class = "form-control", @style="width:30%;display: inline-block;" })
+    &nbsp&nbsp&nbsp&nbsp
+        <label>Направление</label>&nbsp&nbsp
+        <select name="Order.isIn" class="form-control" style="width: auto;display: inline-block;"><option value=true>Входящий</option><option value=false>Исходящий</option></select>
+
+   </div> 
+
+    </form>   
+
+<p></p>
+     <form class="form-inline">
+    <div class="form-group">
+        &nbsp&nbsp<label>Тип документа</label>&nbsp&nbsp
+         @Html.DropDownListFor(m=> m.Order.IODocumentsTypesId,new SelectList(Model.IODocumentsTypes,"Id", "Name"),"", new { @class = "form-control", @style="width: auto;display: inline-block;" })
+   </div> 
+    </form>   
+<p></p>
+
+     <form class="form-inline">
+    <div class="form-group">
+        &nbsp&nbsp<label>Состояние документа</label>&nbsp&nbsp
+      @Html.DropDownListFor(m=> m.OrderState.OrderStateDescriptionId,new SelectList(Model.OrderStateDescriptions,"Id", "Name"),"", new { @class = "form-control", @style="width: auto;display: inline-block;" })
+      &nbsp&nbsp&nbsp&nbsp
+        &nbsp&nbsp<label>Дата регистрации с</label>&nbsp&nbsp
+        @Html.TextBoxFor(m => m.Order.RegDate, new { type = "date", @class = "form-control", @style="width:15%;display: inline-block;" })
+        
+    &nbsp&nbsp&nbsp&nbsp
+        <label>по</label>&nbsp&nbsp
+       @Html.TextBoxFor(m => m.Order.RegDate, new { type = "date", @class = "form-control", @style="width:15%;display: inline-block;" })
+        
+   </div> 
+       </form>   
+<p></p>
+
+     <form class="form-inline">
+    <div class="form-group">
+        &nbsp&nbsp<label>Услуга</label>&nbsp&nbsp
+       @Html.DropDownListFor(m=> m.Order.ServiceCodeId,new SelectList(Model.ServiceCodes,"Id", "Description"),"", new { @class = "form-control", @style="width: 35%;display: inline-block;" })
+      &nbsp&nbsp&nbsp&nbsp
+        &nbsp&nbsp<label>Цель услуги</label>&nbsp&nbsp
+       @Html.DropDownListFor(m=> m.Order.ServicePurposeId,new SelectList(Model.ServicePurposes,"Id", "Description"),"", new { @class = "form-control", @style="width: 35%;display: inline-block;" })
+      
+   </div> 
+       </form>   
+<p></p>
+     <form class="form-inline">
+    <div class="form-group">
+        &nbsp&nbsp<label>Идентификатор сообщения во внешней системе</label>&nbsp&nbsp
+        @Html.TextBoxFor(m => m.Order.ExternalIdentity, new { @class = "form-control", @style="width:auto;display: inline-block;" })
+    &nbsp&nbsp&nbsp&nbsp
+
+   </div> 
+       </form>   
+<p></p>
+
+    @using (Html.BeginForm("Index", "Order"))
+{   
+    <label> </label>
+    <button type="submit" class="btn btn-primary">Поиск</button>
+        <button class="btn btn-primary">Очистить</button>
+}
+<p></p>
+    
+</div>
+<p></p>
+<form class="form-inline">
+        <div class="form-group">
+        <button class="btn btn-primary button-up-down">Обновить</button>
+         <button class="btn btn-primary button-up-down">Добавить</button>
+          <button class="btn btn-primary button-up-down">Изменить</button>
+           <button class="btn btn-primary button-up-down">Удалить</button>
+           <button class="btn btn-primary button-up-down">Передать на верификацию</button>
+           <button class="btn btn-primary button-up-down">Передать на исполнение</button>
+           <button class="btn btn-primary button-up-down">Передать на отклонение</button>
+           <button class="btn btn-primary button-up-down">Верифицировать</button>
+           <button class="btn btn-primary button-up-down">Неверифицировать</button>
+           <button class="btn btn-primary button-up-down">Связанные файлы</button>
+           <button class="btn btn-primary button-up-down">Состояния</button>
+    </div></form>
+    <p></p>
