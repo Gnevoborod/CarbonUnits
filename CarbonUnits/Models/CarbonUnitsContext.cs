@@ -7,7 +7,7 @@ using CarbonUnits.Models.OrderPath;
 
 namespace CarbonUnits.Models
 {
-    public class CarbonUnitsContext: System.Data.Entity.DbContext
+    public class CarbonUnitsContext: DbContext
     {
         
         public DbSet<Member> Members{ get; set; }

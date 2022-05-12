@@ -110,23 +110,23 @@
     $(document).ready(function() {
     $("#accounts_table").dataTable(
         {
-                    ajax:{
-                        url: '/api/accounts',
-                        dataSrc: ''
+                    "ajax":{
+                        "url": '/api/accounts',
+                        "dataSrc": ''
                     },
-                columns:[
-                    {data:"fullName"},
-                    {data:"member.id"},
-                    {data:"member.memberType.name"},
-                    {data:"member.inn"},
-                    {data:"member.snils"},
-                    {data:"member.ogrn"},
-                    {data:"identity"},
-                    {data:"accountStates.name"},
-                    {data:"dateOpen"},
-                    {data:"orderToOpen.identity"},
-                    {data:"dateClose"},
-                    {data:"orderToClose.identity"}
+                "columns":[
+                    {"data":"fullName"},
+                    {"data":"member.id"},
+                    {"data":"member.memberType.name"},
+                    {"data":"member.inn"},
+                    {"data":"member.snils"},
+                    {"data":"member.ogrn"},
+                    {"data":"identity"},
+                    {"data":"accountStates.name"},
+                    {"data":"dateOpen"},
+                    {"data":"orderToOpen.identity"},
+                    {"data":"dateClose"},
+                    {"data":"orderToClose.identity"}
                 ],
         "iDisplayLength": 8,
             "aLengthMenu": [
@@ -143,7 +143,7 @@
                         "все"
                     ]
             ],
-            language: {
+            "language": {
                 "processing": "Подождите...",
                 "search": "Поиск в найденном: ",
                 "lengthMenu": "Показать _MENU_ записей",

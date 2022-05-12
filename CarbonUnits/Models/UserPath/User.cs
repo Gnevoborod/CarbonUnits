@@ -1,6 +1,8 @@
-﻿namespace CarbonUnits.Models.UserPath
+﻿
+
+namespace CarbonUnits.Models.UserPath
 {
-    public class User
+    public class User 
     {
         public int Id { get; set; }
         public string Name { get; set; }    

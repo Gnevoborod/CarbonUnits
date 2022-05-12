@@ -3,6 +3,7 @@ using CarbonUnits.Models;
 using CarbonUnits.ViewModel;
 using CarbonUnits.Models.MemberPath;
 using CarbonUnits.Models.AccountPath;
+
 namespace CarbonUnits.Controllers
 {
     public class AccountsController : Controller
@@ -18,6 +19,7 @@ namespace CarbonUnits.Controllers
             _context.Dispose();
             //base.Dispose(disposing);
         }
+        
         public IActionResult Index()
         {
             AccountSearchPage searchPage = new AccountSearchPage();

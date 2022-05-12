@@ -53,7 +53,7 @@ namespace CarbonUnits.DTO
 
             //заглушка чтобы не выплёвывало null при загрузке данных по счетам. ведь документа-основания может не быть
             //на этапе разработки - только для orderToOpen, а на этапе пром эксплуатации уже только для orderToClose
-            this.FullName=Member.FullName==null? Member.LastName + " " + Member.FirstName + " " + Member.Patronymic: Member.FullName;
+            this.FullName=Member.FullName?? Member.LastName + " " + Member.FirstName + " " + Member.Patronymic;
             if (this.OrderToOpen==null)
             {
                 this.OrderToOpen = new Order();

@@ -88,10 +88,8 @@ namespace CarbonUnits.DTO
                 this.Account = new Account();
                 this.Account.Identity = "";
             }
-            if (this.FullName==null)
-            {
-                this.FullName = this.LastName+" "+this.FirstName + " " + this.Patronymic;
-            }
+            this.FullName= this.FullName ?? this.LastName+" "+this.FirstName + " " + this.Patronymic;
+            
             this.PersonDocumentsTypes = member.PersonDocumentsTypes;
             this.DocumentInfo = this.PersonDocumentsTypes.Name + " " + this.DocSeries + " " + this.DocNumber;
         }
