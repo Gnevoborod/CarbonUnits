@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using CarbonUnits.Models.UserPath;
 namespace CarbonUnits.Models.Dictionaries
 {
     public class ServicePurposes
@@ -13,5 +14,9 @@ namespace CarbonUnits.Models.Dictionaries
         public string Description { get; set; }//Описание цели услуги
         public IODocumentsTypes IODocumentsTypes { get; set; }//
         public int? IODocumentsTypesID { get; set; }//Ссылка на справочник типов документов
+        public DateTime Created { get; set; }
+        public DateTime? Updated { get; set; }
+        public int? UserId { get; set; }
+        public User User { get; set; }
     }
 }
